@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday 💖</title>
+
+<style>
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+
+body {
+    background: url("photo.png.pmg") no-repeat center center / cover;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(120deg,
+        rgba(255,105,180,0.35),
+        rgba(138,43,226,0.35),
+        rgba(0,206,209,0.35),
+        rgba(255,165,0,0.35));
+    animation: bgFlow 35s linear infinite;
+    z-index: 1;
+}
+
+@keyframes bgFlow {
+    from { filter: hue-rotate(0deg); }
+    to { filter: hue-rotate(360deg); }
+}
+
+.card {
+    position: relative;
+    z-index: 2;
+    width: 90%;
+    max-width: 430px;
+    margin: 35px auto;
+    padding: 22px;
+    border-radius: 25px;
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    animation: pop 1.2s ease-out;
+    max-height: 90vh;
+    overflow-y: auto;
+    text-align: center;
+}
+
+@keyframes pop {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.card img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ff85a2;
+}
+
+h1 {
+    font-size: 23px;
+    background: linear-gradient(to right, #ff66a3, #d63384);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#typing-text {
+    font-size: 15.5px;
+    color: #333;
+    line-height: 1.6;
+    white-space: pre-line;
+    min-height: 220px;
+}
+
+.cursor {
+    display: inline-block;
+    width: 2px;
+    background: #d63384;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+.reply-box {
+    margin-top: 15px;
+}
+
+.reply-box textarea {
+    width: 100%;
+    height: 70px;
+    border-radius: 15px;
+    border: none;
+    padding: 10px;
+    resize: none;
+    font-size: 14px;
+    outline: none;
+}
+
+.reply-box button,
+.replay-btn {
+    margin-top: 8px;
+    padding: 8px 20px;
+    border-radius: 20px;
+    border: none;
+    background: linear-gradient(to right, #ff66a3, #d63384);
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.reply-display {
+    margin-top: 12px;
+    font-size: 14px;
+    background: rgba(255,255,255,0.7);
+    padding: 10px;
+    border-radius: 15px;
+    display: none;
+}
+
+h3 {
+    color: #c2185b;
+    margin-top: 12px;
+}
+
+.heart {
+    position: absolute;
+    bottom: -10vh;
+    font-size: 22px;
+    animation: float 8s linear infinite;
+    opacity: 0.8;
+    z-index: 2;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="card">
+    <img src="photo.png.png" alt="Birthday Photo">
+    <h1>🎂 Happy Birthday, Maichang 💖</h1>
+
+    <div id="typing-text"></div><span class="cursor"></span>
+
+    <button class="replay-btn" onclick="replay()">Replay Message 🔁</button>
+
+    <div class="reply-box">
+        <textarea id="replyInput" placeholder="Write your reply here 💌"></textarea>
+        <br>
+        <button onclick="sendReply()">Send</button>
+    </div>
+
+    <div class="reply-display" id="replyDisplay"></div>
+
+    <h3>🌹 With lots of love and care 🌹</h3>
+</div>
+
+<!-- Floating hearts -->
+<div class="heart" style="left:10%;">💖</div>
+<div class="heart" style="left:25%; animation-duration:6s;">❤</div>
+<div class="heart" style="left:40%; animation-duration:8s;">💗</div>
+<div class="heart" style="left:55%; animation-duration:7s;">💖</div>
+<div class="heart" style="left:70%; animation-duration:6.5s;">❤</div>
+<div class="heart" style="left:85%; animation-duration:9s;">💗</div>
+
+<script>
+const message = `
+Wishing you a day full of smiles, happiness,
+and beautiful moments ✨
+
+I hope one day you understand how I felt.
+You have been a very special person in my life —
+someone who cared, supported, and stood by me.
+
+I thank God for giving me the opportunity
+to meet someone like you.
+
+Today is your day, so enjoy every moment of it 💕
+I will always be there to clap for your success
+and comfort you during the harsh parts of life.
+
+I hope all your plans and your future
+become brighter and more beautiful 🌸
+      
+    #HAPPY RETURNS OF THE DAY#
+ "I am always yours,Even if u'r not mine"
+`;
+
+let index = 0;
+const speed = 35;
+const typingText = document.getElementById("typing-text");
+const card = document.getElementById("card");
+
+function typeText() {
+    if (index < message.length) {
+        typingText.innerHTML += message.charAt(index);
+        index++;
+        card.scrollTop = card.scrollHeight;
+        setTimeout(typeText, speed);
+    }
+}
+
+function replay() {
+    index = 0;
+    typingText.innerHTML = "";
+    typeText();
+}
+
+function sendReply() {
+    const input = document.getElementById("replyInput");
+    if (!input.value.trim()) return;
+
+    localStorage.setItem("birthdayReply", input.value);
+
+    const display = document.getElementById("replyDisplay");
+    display.style.display = "block";
+    display.innerText = "💬 Her reply:\n" + input.value;
+
+    input.disabled = true;
+    input.value = "";
+    burstHearts();
+}
+
+function burstHearts() {
+    for (let i = 0; i < 15; i++) {
+        const heart = document.createElement("div");
+        heart.innerText = "💖";
+        heart.style.position = "fixed";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.bottom = "0";
+        heart.style.fontSize = "20px";
+        heart.style.animation = "float 4s linear";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 4000);
+    }
+}
+
+window.onload = () => {
+    const saved = localStorage.getItem("birthdayReply");
+    if (saved) {
+        const display = document.getElementById("replyDisplay");
+        display.style.display = "block";
+        display.innerText = "💬 Her reply:\n" + saved;
+        document.getElementById("replyInput").disabled = true;
+    }
+    typeText();
+};
+</script>
+
+</body>
+</html>
